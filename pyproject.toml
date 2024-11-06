@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.12"
 django = "^5.1.2"
 pillow = "*"
+ipython = "^8.29.0"
+faker = "^30.8.2"
 
 
 [build-system]
