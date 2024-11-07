@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 """
 id (primary key - Auto integer) >> Gerado automaticamente com o django (INTEGER AUTO INCREMENT)
@@ -18,7 +19,7 @@ picture (image)
 class Category(models.Model):
 
   class Meta:
-    verbose_name = "Category" # Nome verboso 
+    verbose_name = "Category" # Nome verboso
     verbose_name_plural = "Categories" # Nome verboso no plural
 
   name = models.CharField(max_length=50)
@@ -36,6 +37,7 @@ class Contact(models.Model):
   show = models.BooleanField(default=True)
   image = models.ImageField(blank=True, upload_to='pictures/%Y/%m/%d')
   category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True) # Null deixa o campo como nulo
+  owner = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
 
   def __str__(self):
     return f"{self.first_name} {self.last_name}"
