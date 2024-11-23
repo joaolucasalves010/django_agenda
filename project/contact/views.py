@@ -43,3 +43,7 @@ def contact(request, id):
   except Exception as exc:
     print(exc)
     raise Http404("Contato não existe")
+  
+def create(request):
+  context = {}
+  return render(request, 'contact/create.html', context)
