@@ -3,6 +3,7 @@ from contact.models import Contact
 from django.db.models import Q
 from django.http import Http404
 from django.core.paginator import Paginator
+from contact.forms import ContactForm
 
 # Create your views here.
 def index(request):
@@ -45,14 +46,12 @@ def contact(request, id):
     raise Http404("Contato não existe")
   
 def create(request):
+  if request.method == 'POST':
+    context = {'form': ContactForm()}
+    return render(request, 'contact/create.html', context)
+  
+  context = {
+    'form': ContactForm()
+  }
 
-  print(request.method)
-  if request.method == "POST":    
-    print()
-    print(request.method)
-    first_name = request.POST.get("first_name")
-    last_name = request.POST.get('last_name')
-    print(f"{first_name} {last_name}")
-
-  context = {}
   return render(request, 'contact/create.html', context)
