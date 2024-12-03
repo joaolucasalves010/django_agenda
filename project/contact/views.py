@@ -34,17 +34,13 @@ def search(request):
   return render(request, "contact/index.html", context)
 
 def contact(request, id):
-  try:
     contact = Contact.objects.get(id=id)
     site_title = f"{contact.first_name} {contact.last_name} "
     context= {
-    "page_obj": contact,
+    "contact": contact,
     "site_title": site_title,
     }
     return render(request, "contact/contact.html", context)
-  except Exception as exc:
-    print(exc)
-    raise Http404("Contato não existe")
   
 def create(request):
   
@@ -88,7 +84,7 @@ def update(request, id):
     if form.is_valid():
       print("Formulario válido")
       contact = form.save()
-      return redirect('contact:contact', id=contact.pk)
+      return redirect('contact:update', id=contact.pk)
     else:
       print("Formulário não é válido")
 
@@ -99,3 +95,22 @@ def update(request, id):
       'form_action': form_action,
     }
     return render(request, 'contact/create.html', context)
+
+def delete(request, id):
+  contact = get_object_or_404(
+    Contact, pk=id, show=True
+  )
+
+  confirmation = request.POST.get("confirmation", "no")
+  print("confirmation", confirmation)
+
+  if confirmation == "yes":
+    contact.delete()
+    return redirect('contact:index')
+
+  context = {
+    "contact": contact,
+    "confirmation": confirmation,
+  }
+
+  return render(request, 'contact/contact.html', context)
