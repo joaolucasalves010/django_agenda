@@ -9,7 +9,7 @@ class ContactForm(forms.ModelForm):
       attrs={"placeholder": "Primeiro nome"}
     ),
     label="Primeiro nome",
-    help_text="Insira seu primeiro nome acima"
+    # help_text="Insira seu primeiro nome acima"
   )
 
   last_name = forms.CharField(
@@ -17,7 +17,7 @@ class ContactForm(forms.ModelForm):
       attrs={"placeholder": "Ultimo nome"}
     ),
     label="Ultimo nome",
-    help_text="Insira seu ultimo nome acima"
+    # help_text="Insira seu ultimo nome acima"
   )
 
   phone = forms.CharField(
@@ -25,12 +25,19 @@ class ContactForm(forms.ModelForm):
       attrs={"placeholder": "Insira seu telefone aqui"}
     ),
     label="Telefone",
-    help_text='Insira seu telefone acima'
+    # help_text='Insira seu telefone acima'
   )
-  
+
+  email = forms.EmailField(
+    widget=forms.EmailInput(
+      attrs={"placeholder": "Insira seu email aqui"}
+    ),
+    label="Email"
+  )
+ 
   class Meta:
     model = Contact
-    fields = ('first_name', 'last_name', 'phone', )
+    fields = ('first_name', 'last_name', 'phone', 'email', 'description', 'category', )
     # widgets = {
     #   'first_name': forms.TextInput(attrs={'placeholder': 'Primeiro nome'}),
     #   'last_name': forms.TextInput(attrs={'placeholder': 'Ultimo nome'}),
