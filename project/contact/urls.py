@@ -10,5 +10,6 @@ urlpatterns = [
   # Urls padrão de CRUD (Create, Read, Update, Delete)
   path('search/', views.search, name='search'),
   path('contact/create', views.create, name='create'),
-  path('contact/<int:id>/update', views.update, name='update')
+  path('contact/<int:id>/update', views.update, name='update'),
+  path('contact/<int:id>/delete', views.delete, name="delete")
 ]
