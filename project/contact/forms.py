@@ -2,6 +2,7 @@
 from django import forms
 from contact.models import Contact
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
 
 class ContactForm(forms.ModelForm):
   first_name = forms.CharField(
@@ -66,4 +67,6 @@ class ContactForm(forms.ModelForm):
     
     print(cleaned_data)
     return super().clean()
-      
+
+class RegisterForm(UserCreationForm):
+  pass

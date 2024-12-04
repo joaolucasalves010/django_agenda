@@ -5,6 +5,7 @@ from django.http import Http404
 from django.core.paginator import Paginator
 from contact.forms import ContactForm
 from django.urls import reverse
+from contact.forms import RegisterForm
 
 # Create your views here.
 def index(request):
@@ -114,3 +115,16 @@ def delete(request, id):
   }
 
   return render(request, 'contact/contact.html', context)
+
+def register(request):
+
+  if request.method == "POST":
+    form = RegisterForm(request.POST)
+    if form.is_valid():
+      form.save()
+
+  context = {
+    'form': RegisterForm(),
+  }
+
+  return render(request, 'contact/register.html', context)
