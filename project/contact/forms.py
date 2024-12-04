@@ -34,10 +34,19 @@ class ContactForm(forms.ModelForm):
     ),
     label="Email"
   )
+
+  image = forms.ImageField(
+    widget=forms.FileInput(
+      attrs={
+        "accept": "image/*",
+      }
+    ),
+    label="Imagem"
+  )
  
   class Meta:
     model = Contact
-    fields = ('first_name', 'last_name', 'phone', 'email', 'description', 'category', )
+    fields = ('first_name', 'last_name', 'phone', 'email', 'description', 'category', 'image', )
     # widgets = {
     #   'first_name': forms.TextInput(attrs={'placeholder': 'Primeiro nome'}),
     #   'last_name': forms.TextInput(attrs={'placeholder': 'Ultimo nome'}),
