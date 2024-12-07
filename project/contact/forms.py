@@ -43,7 +43,7 @@ class ContactForm(forms.ModelForm):
         "accept": "image/*",
       }
     ),
-    label="Imagem"
+    label="Imagem",
   )
  
   class Meta:

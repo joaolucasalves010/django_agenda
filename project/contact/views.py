@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from contact.forms import ContactForm
 from django.urls import reverse
 from contact.forms import RegisterForm
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -122,6 +123,7 @@ def register(request):
     form = RegisterForm(request.POST)
     if form.is_valid():
       form.save()
+      messages.sucess(request, "Contact salvo com sucesso")
 
   context = {
     'form': RegisterForm(),
