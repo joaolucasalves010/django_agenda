@@ -7,6 +7,8 @@ from contact.forms import ContactForm
 from django.urls import reverse
 from contact.forms import RegisterForm
 from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import auth
 
 # Create your views here.
 def index(request):
@@ -130,3 +132,25 @@ def register(request):
   }
 
   return render(request, 'contact/register.html', context)
+
+def login_view(request):
+  form = AuthenticationForm()
+
+  if request.method == "POST":
+    form = AuthenticationForm(request, request.POST)
+    
+
+    if form.is_valid():
+      user = form.get_user()
+      auth.login(request, user)
+      print(user)
+
+  context = {
+    'form': form,
+  }
+
+  return render(request, 'contact/login.html', context)
+
+def logout_view(request):
+  auth.logout(request)
+  return redirect('contact:login')
