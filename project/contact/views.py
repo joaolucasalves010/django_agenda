@@ -9,6 +9,7 @@ from contact.forms import RegisterForm, RegisterUpdateForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -45,7 +46,8 @@ def contact(request, id):
     "site_title": site_title,
     }
     return render(request, "contact/contact.html", context)
-  
+
+@login_required(login_url='contact:login')
 def create(request):
   
   form_action = reverse("contact:create")
@@ -73,6 +75,7 @@ def create(request):
     }
     return render(request, 'contact/create.html', context)
 
+@login_required(login_url='contact:login')
 def update(request, id):
   contact = get_object_or_404(Contact, pk=id, show=True)
   form_action = reverse("contact:update", args=(id,))
@@ -100,6 +103,7 @@ def update(request, id):
     }
     return render(request, 'contact/create.html', context)
 
+@login_required(login_url='contact:login')
 def delete(request, id):
   contact = get_object_or_404(
     Contact, pk=id, show=True
@@ -153,10 +157,12 @@ def login_view(request):
 
   return render(request, 'contact/login.html', context)
 
+@login_required(login_url='contact:login')
 def logout_view(request):
   auth.logout(request)
   return redirect('contact:login')
 
+@login_required(login_url='contact:login')
 def user_update(request):
   form = RegisterUpdateForm(instance=request.user)
 
