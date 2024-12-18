@@ -62,7 +62,9 @@ def create(request):
     
     if form.is_valid():
       print("Formulario válido")
-      contact = form.save()
+      contact = form.save(commit=False)
+      contact.owner = request.user
+      contact.save()
       return redirect('contact:update', id=contact.pk)
     else:
       print("Formulário não é válido")
@@ -77,7 +79,7 @@ def create(request):
 
 @login_required(login_url='contact:login')
 def update(request, id):
-  contact = get_object_or_404(Contact, pk=id, show=True)
+  contact = get_object_or_404(Contact, pk=id, show=True, owner=request.user)
   form_action = reverse("contact:update", args=(id,))
   
   if request.method == 'POST':
