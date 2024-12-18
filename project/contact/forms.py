@@ -45,6 +45,7 @@ class ContactForm(forms.ModelForm):
       }
     ),
     label="Imagem",
+    required=False
   )
  
   class Meta:
